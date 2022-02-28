@@ -32,7 +32,7 @@ def list_drive(update, context):
         sendMessage("𝐃𝐨𝐧'𝐭 𝐮𝐬𝐞 𝐮𝐧𝐧𝐞𝐜𝐞𝐬𝐬𝐚𝐫𝐢𝐥𝐲, 𝐒𝐞𝐧𝐝 𝐚 𝐬𝐞𝐚𝐫𝐜𝐡 𝐤𝐞𝐲 𝐚𝐥𝐨𝐧𝐠 𝐰𝐢𝐭𝐡 𝐜𝐨𝐦𝐦𝐚𝐧𝐝", context.bot, update)
         deleteMessage(context.bot, emo)
                 
-@Client.on_message(filters.command(["droplink"]) & filters.regex(r'https?://[^\s]+'))
+@bot.on_message(filters.command(["droplink"]) & filters.regex(r'https?://[^\s]+'))
 async def reply_shortens(bot, update):
     message = await update.reply_text(
         text="`Analysing your link...`",
