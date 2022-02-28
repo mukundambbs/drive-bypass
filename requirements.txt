@@ -8,4 +8,4 @@ telegraph
 pyshorteners
 BeautifulSoup
 urlparse
-git+https://github.com/subinps/pyrogram@inline-m
+pyrogram
