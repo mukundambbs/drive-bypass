@@ -47,13 +47,15 @@ async def reply_shortens(bot, update):
         disable_web_page_preview=True
     )
     
-def gplinks_bypass(url):
+def droplink_bypass(url):
     client = requests.Session()
     res = client.get(url)
-    
-    h = { "referer": res.url }
+
+    ref = re.findall("action[ ]{0,}=[ ]{0,}['|\"](.*?)['|\"]", res.text)[0]
+
+    h = {'referer': ref}
     res = client.get(url, headers=h)
-    
+
     bs4 = BeautifulSoup(res.content, 'lxml')
     inputs = bs4.find_all('input')
     data = { input.get('name'): input.get('value') for input in inputs }
@@ -62,11 +64,10 @@ def gplinks_bypass(url):
         'content-type': 'application/x-www-form-urlencoded',
         'x-requested-with': 'XMLHttpRequest'
     }
-    
-    time.sleep(10) # !important
-    
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
+
+    time.sleep(3.1)
     res = client.post(final_url, data=data, headers=h).json()
 
     return res
