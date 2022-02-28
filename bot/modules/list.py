@@ -40,7 +40,7 @@ async def reply_shortens(bot, update):
         quote=True
     )
     url = update.matches[0].group(0)
-    shorten_urls = await gplinks_bypass(url)
+    shorten_urls = await droplink_bypass(url)
     await message.edit_text(
         text=shorten_urls,
         reply_markup=reply_markup,
