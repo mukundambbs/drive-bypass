@@ -9,5 +9,5 @@ pyshorteners
 BeautifulSoup
 urlparse
 pyrogram
-BeautifulSoup
+beautifulsoup4
 urlparse
