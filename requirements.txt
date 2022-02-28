@@ -6,8 +6,6 @@ python-telegram-bot
 requests
 telegraph
 pyshorteners
-BeautifulSoup
-urlparse
 pyrogram
 bs4
 urllib.parse
