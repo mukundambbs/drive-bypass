@@ -6,6 +6,5 @@ class _BotCommands:
         self.AuthorizeCommand = 'auth'
         self.UnAuthorizeCommand = 'unauth'
         self.LogCommand = 'log'
-        self.GPlink = 'gplink'
 
 BotCommands = _BotCommands()
