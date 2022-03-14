@@ -8,7 +8,7 @@ from .modules import authorize, list
 
 def start(update, context):
     
-    user = await bot.get_chat_member(chat_id=-1001472280508, user_id=update.from_user.id)
+    await bot.get_chat_member(chat_id=-1001472280508, user_id=update.from_user.id)
     await bot.send_message(
             chat_id=update.from_user.id,
             text="**your not a primium user if you want primium service contact my father**")
