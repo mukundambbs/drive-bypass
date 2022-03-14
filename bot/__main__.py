@@ -7,13 +7,13 @@ from .modules import authorize, list
 
 
 def start(update, context):
-    
-    await bot.get_chat_member(chat_id=-1001472280508, user_id=update.from_user.id)
-    await bot.send_message(
+    bot.get_chat_member(chat_id=-1001472280508, user_id=update.from_user.id)
+    bot.send_message(
             chat_id=update.from_user.id,
             text="**your not a primium user if you want primium service contact my father**")
+   
     
-    
+
     start_string = '\x1f𝐇𝐞𝐲 𝐁𝐫𝐨!! 𝐈 𝐜𝐚𝐧 𝐬𝐞𝐚𝐫𝐜𝐡 𝐟𝐢𝐥𝐞 𝐟𝐫𝐨𝐦 𝐏𝐌 𝐆𝐨𝐨𝐠𝐥𝐞 𝐃𝐫𝐢𝐯𝐞!\x1f'
     sendMessage(start_string, context.bot, update)
 
