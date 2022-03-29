@@ -21,9 +21,9 @@ def list_drive(update, context):
         msg, button = gdrive.drive_list(search)
 
         if button:
-            msgg = "𝗟𝗶𝗻𝗸 𝗦𝗲𝗻𝗱𝗲𝗱 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗣𝗠 😎"
-            editMessage(msgg, reply, button)
+            deleteMessage(context.bot, reply)
             deleteMessage(context.bot, emoji)
+            msgg = sendMessage("𝗟𝗶𝗻𝗸 𝗦𝗲𝗻𝗱𝗲𝗱 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗣𝗠 😎", context.bot, update)
             sendPrivate(msg, context.bot, update, button)
         else:
             editMessage(f'𝐍𝐨 𝐫𝐞𝐬𝐮𝐥𝐭 𝐟𝐨𝐮𝐧𝐝 𝐟𝐨𝐫 <code>{search}</code>', reply, button)
