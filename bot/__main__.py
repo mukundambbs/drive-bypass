@@ -31,7 +31,7 @@ def main():
     bot.set_my_commands(botcmds)
     kie = datetime.now(pytz.timezone('Asia/Kolkata'))
     jam = kie.strftime('\n📅 𝘿𝘼𝙏𝙀: %d/%m/%Y\n⏲️ 𝙏𝙄𝙈𝙀: %I:%M%P')
-    text = f"<b>✨𝐁𝐨𝐭 𝐒𝐭𝐚𝐫𝐭𝐞𝐝✨\n{jam}\n\nᴇᴠᴇʀʏ ᴍᴏᴍᴇɴᴛ ɪs ᴀ ғʀᴇsʜ ʙᴇɢɪɴɴɪɴɢ</b>"
+    text = f"<b>✨𝐁𝐨𝐭 𝐑𝐞𝐬𝐭𝐚𝐫𝐭𝐞𝐝✨\n{jam}\n\nɪ'ᴍ ᴘᴍ ᴅʀɪᴠᴇ sᴇᴀʀᴄʜ ʙᴏᴛ</b>"
     bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
     if AUTHORIZED_CHATS:
         for i in AUTHORIZED_CHATS:
