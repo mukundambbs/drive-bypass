@@ -4,7 +4,9 @@ import time
 from bot import LOGGER, bot
 from telegram.error import TimedOut, BadRequest
 from bot import bot
-from telegram import InlineKeyboardMarkup
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.message import Message
+from telegram.update import Update
 
 
 def sendMessage(text: str, bot, update: Update):
@@ -14,6 +16,24 @@ def sendMessage(text: str, bot, update: Update):
                             text=text, parse_mode='HTMl')
     except Exception as e:
         LOGGER.error(str(e))
+        
+def sendPrivate(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
+    bot_d = bot.get_me()
+    b_uname = bot_d.username
+    
+    try:
+        return bot.send_message(update.message.from_user.id,
+                             reply_to_message_id=update.message.message_id,
+                             text=text, disable_web_page_preview=True, reply_markup=reply_markup, allow_sending_without_reply=True, parse_mode='HTMl')
+    except Exception as e:
+        LOGGER.error(str(e))
+        if "Forbidden" in str(e):
+            uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
+            keyboard = [
+            [InlineKeyboardButton("𝐒𝐓𝐀𝐑𝐓 𝐌𝐄", url = "http://t.me/PM_DriveBot?start=start")],
+            [InlineKeyboardButton("𝐉𝐎𝐈𝐍 𝐇𝐄𝐑𝐄", url = "https://t.me/PM_Bots")]]
+            sendMarkup(f"<b>ʜᴇʏ {uname}, ʏᴏᴜ ʜᴀᴠᴇɴ'ᴛ sᴛᴀʀᴛᴇᴅ ᴍᴇ ɪɴ ᴘᴍ (ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ) ʏᴇᴛ👀.</b>\n\n𝐅𝐑𝐎𝐌 𝐍𝐎𝐖 𝐎𝐍 𝐈 𝐖𝐈𝐋𝐋 𝐆𝐈𝐕𝐄 𝐋𝐈𝐍𝐊 𝐈𝐍 𝐏𝐌 (𝐏𝐑𝐈𝐕𝐀𝐓𝐄 𝐂𝐇𝐀𝐓) 𝐎𝐍𝐋𝐘 😁", bot, update, reply_markup=InlineKeyboardMarkup(keyboard))
+            return        
 
 def editMessage(text: str, message: Message, reply_markup=None):
     try:
