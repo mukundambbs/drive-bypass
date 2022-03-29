@@ -4,23 +4,38 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
-from bot.helper.telegram_helper.message_utils import *
-from bot import AUTHORIZED_CHATS, dispatcher
 from telegram.ext import CommandHandler
+from bot.helper.drive_utils.gdriveTools import GoogleDriveHelper
+from bot import LOGGER, dispatcher
+from bot.helper.telegram_helper.message_utils import *
 from bot.helper.telegram_helper.filters import CustomFilters
-from telegram import Update
-from bot.helper.telegram_helper.bot_commands import BotCommands
+from bot.helper.telegram_helper.bot_commands import 
 
 
 # droplink url
-
+def drop_handler(update, context):
+    args = update.message.text.split(" ", maxsplit=1)
+    if len(args) > 1:
+        link = args[1]
+    else:
+        link = ''
+    try:
+      is_droplink = True if "droplink" in link else False
+      if is_droplink:
+          msg = sendMessage(f'𝗕𝘆𝗽𝗮𝘀𝘀𝗶𝗻𝗴 𝘆𝗼𝘂𝗿 𝗗𝗿𝗼𝗽𝗹𝗶𝗻𝗸 𝗟𝗶𝗻𝗸: <code>{link}</code>\n\n𝙋𝙡𝙚𝙖𝙨𝙚 𝙬𝙖𝙞𝙩 𝙖 𝙢𝙞𝙣𝙪𝙩𝙚.', context.bot, update)
+          baashax = droplink_bypass(link)
+          links = baashax.get('url')
+          deleteMessage(context.bot, msg)
+          bx = sendMessage(f"𝙄'𝙫𝙚 𝙎𝙚𝙣𝙙 𝙩𝙝𝙚 𝘽𝙮𝙥𝙖𝙨𝙨𝙚𝙙 𝙇𝙞𝙣𝙠 𝙩𝙤 𝙮𝙤𝙪𝙧 𝙋𝙈.", context.bot, update)
+          sendPrivate(f'𝗚𝗶𝘃𝗲𝗻 𝗟𝗶𝗻𝗸: <code>{link}</code>\n\n𝗕𝘆𝗽𝗮𝘀𝘀𝗲𝗱 𝗟𝗶𝗻𝗸: <code>{links}</code>', context.bot, update)
+      else:
+          sendMessage('𝗦𝗲𝗻𝗱 𝗗𝗿𝗼𝗽𝗹𝗶𝗻𝗸 𝗟𝗶𝗻𝗸𝘀 𝗮𝗹𝗼𝗻𝗴 𝘄𝗶𝘁𝗵 𝗰𝗼𝗺𝗺𝗮𝗻𝗱.', context.bot, update)
+    except DDLException as e:
+        LOGGER.error(e)
 
 # ==============================================
     
-def droplink_bypass(update,context):
-  try:
-    url = update.message.text.split(' ',maxsplit=1)[1]
-    LOGGER.info(f"Drop link : {url}")
+def droplink_bypass(url):
     client = requests.Session()
     res = client.get(url)
 
@@ -39,16 +54,13 @@ def droplink_bypass(update,context):
     }
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
-    sendMessage(final_url, context.bot, update, button)
 
     time.sleep(3.1)
     res = client.post(final_url, data=data, headers=h).json()
-    sendMessage(res, context.bot, update, button)
 
-  except IndexError:
-    sendMessage("𝐒𝐞𝐧𝐝 𝐃𝐫𝐨𝐩 𝐋𝐢𝐧𝐤 𝐰𝐢𝐭𝐡 𝐂𝐨𝐦𝐦𝐞𝐧𝐝", context.bot, update)
+    return res
 
-# ==============================================
 
-drop_handler = CommandHandler(BotCommands.DropCommand, droplink_bypass,filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
-dispatcher.add_handler(drop_handler)
+droplink_handler = CommandHandler(BotCommands.DropCommand, drop_handler,
+                               filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
+dispatcher.add_handler(droplink_handler)
