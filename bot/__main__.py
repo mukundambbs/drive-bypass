@@ -28,16 +28,14 @@ botcmds = [(f'{BotCommands.ListCommand}','Search files in My Drive')]
 
 def main():
     bot.set_my_commands(botcmds)
-    try:
-        kie = datetime.now(pytz.timezone('Asia/Kolkata'))
-        jam = kie.strftime('\n📅 𝘿𝘼𝙏𝙀: %d/%m/%Y\n⏲️ 𝙏𝙄𝙈𝙀: %I:%M%P')
-        text = f"<b>✨𝐁𝐨𝐭 𝐒𝐭𝐚𝐫𝐭𝐞𝐝✨\n{jam}\n\nᴇᴠᴇʀʏ ᴍᴏᴍᴇɴᴛ ɪs ᴀ ғʀᴇsʜ ʙᴇɢɪɴɴɪɴɢ</b>"
-        bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
-        if AUTHORIZED_CHATS:
-            for i in AUTHORIZED_CHATS:
-                bot.sendMessage(chat_id=i, text=text, parse_mode=ParseMode.HTML)
-     except Exception as e:
-            LOGGER.warning(e)           
+    kie = datetime.now(pytz.timezone('Asia/Kolkata'))
+    jam = kie.strftime('\n📅 𝘿𝘼𝙏𝙀: %d/%m/%Y\n⏲️ 𝙏𝙄𝙈𝙀: %I:%M%P')
+    text = f"<b>✨𝐁𝐨𝐭 𝐒𝐭𝐚𝐫𝐭𝐞𝐝✨\n{jam}\n\nᴇᴠᴇʀʏ ᴍᴏᴍᴇɴᴛ ɪs ᴀ ғʀᴇsʜ ʙᴇɢɪɴɴɪɴɢ</b>"
+    bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
+    if AUTHORIZED_CHATS:
+        for i in AUTHORIZED_CHATS:
+            bot.sendMessage(chat_id=i, text=text, parse_mode=ParseMode.HTML)
+                  
 
     start_handler = CommandHandler(BotCommands.StartCommand, start, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
     log_handler = CommandHandler(BotCommands.LogCommand, log, filters=CustomFilters.owner_filter, run_async=True)
