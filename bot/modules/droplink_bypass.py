@@ -19,8 +19,8 @@ from bot.helper.telegram_helper.bot_commands import BotCommands
     
 def droplink_bypass(update,context):
   try:
-    reply_message = update.message.reply_to_message
-    url = update.message.text.split(' ')
+    url = update.message.text.split(' ',maxsplit=1)[1]
+    LOGGER.info(f"Drop link : {url}")
     client = requests.Session()
     res = client.get(url)
 
@@ -39,13 +39,14 @@ def droplink_bypass(update,context):
     }
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
-    sendPrivate(final_url, context.bot, update, button)
+    sendMessage(final_url, context.bot, update, button)
 
     time.sleep(3.1)
     res = client.post(final_url, data=data, headers=h).json()
+    sendMessage(res, context.bot, update, button)
 
   except IndexError:
-    sendMessage("𝐃𝐨𝐧'𝐭 𝐮𝐬𝐞 𝐮𝐧𝐧𝐞𝐜𝐞𝐬𝐬𝐚𝐫𝐢𝐥𝐲, 𝐒𝐞𝐧𝐝 𝐚 𝐬𝐞𝐚𝐫𝐜𝐡 𝐤𝐞𝐲 𝐚𝐥𝐨𝐧𝐠 𝐰𝐢𝐭𝐡 𝐜𝐨𝐦𝐦𝐚𝐧𝐝", context.bot, update)
+    sendMessage("𝐒𝐞𝐧𝐝 𝐃𝐫𝐨𝐩 𝐋𝐢𝐧𝐤 𝐰𝐢𝐭𝐡 𝐂𝐨𝐦𝐦𝐞𝐧𝐝", context.bot, update)
 
 # ==============================================
 
