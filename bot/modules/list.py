@@ -16,12 +16,13 @@ def list_drive(update, context):
         search = update.message.text.split(' ',maxsplit=1)[1]
         LOGGER.info(f"Searching: {search}")
         emoji = sendMessage('🧐', context.bot, update)
-        reply = sendMessage('𝐒𝐞𝐚𝐫𝐜𝐡𝐢𝐧𝐠..... 𝐏𝐥𝐞𝐚𝐬𝐞 𝐰𝐚𝐢𝐭!', context.bot, update)
+        reply = sendMessage("𝐒𝐞𝐚𝐫𝐜𝐡𝐢𝐧𝐠..... 𝐏𝐥𝐞𝐚𝐬𝐞 𝐰𝐚𝐢𝐭!\n\n 𝗜𝗳 𝗕𝗼𝗧 𝗱𝗼𝗲𝘀𝗻'𝘁 𝘀𝗲𝗻𝗱 𝗮𝗻𝘆, 𝗧𝗿𝘆 𝗮𝗴𝗮𝗶𝗻 𝘄𝗶𝘁𝗵 𝗠𝗼𝘃𝗶𝗲 𝗡𝗮𝗺𝗲 & 𝗬𝗲𝗮𝗿🙂.", context.bot, update)
         gdrive = GoogleDriveHelper(None)
         msg, button = gdrive.drive_list(search)
 
         if button:
-            deleteMessage(context.bot, reply)
+            msgg = "𝗟𝗶𝗻𝗸 𝗦𝗲𝗻𝗱𝗲𝗱 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗣𝗠 😎"
+            editMessage(msgg, reply, button)
             deleteMessage(context.bot, emoji)
             sendPrivate(msg, context.bot, update, button)
         else:
