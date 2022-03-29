@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 from telegram.ext import CommandHandler
 from bot.helper.drive_utils.gdriveTools import GoogleDriveHelper
 from bot import LOGGER, dispatcher
-from bot.helper.telegram_helper.message_utils import sendMessage, editMessage ,deleteMessage
+from bot.helper.telegram_helper.message_utils import *
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
 
@@ -21,8 +21,9 @@ def list_drive(update, context):
         msg, button = gdrive.drive_list(search)
 
         if button:
-            editMessage(msg, reply, button)
+            deleteMessage(context.bot, reply)
             deleteMessage(context.bot, emoji)
+            sendPrivate(result + msg, context.bot, update, button)
         else:
             editMessage(f'𝐍𝐨 𝐫𝐞𝐬𝐮𝐥𝐭 𝐟𝐨𝐮𝐧𝐝 𝐟𝐨𝐫 <code>{search}</code>', reply, button)
             deleteMessage(context.bot, emoji)
