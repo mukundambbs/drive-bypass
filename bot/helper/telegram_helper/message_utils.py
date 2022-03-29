@@ -9,6 +9,20 @@ from telegram.message import Message
 from telegram.update import Update
 
 
+def sendMarkup(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
+    try:
+        return bot.send_message(update.message.chat_id,
+                            reply_to_message_id=update.message.message_id,
+                            text=text, reply_markup=reply_markup, allow_sending_without_reply=True,
+                            parse_mode='HTMl', disable_web_page_preview=True)
+    except RetryAfter as r:
+        LOGGER.error(str(r))
+        time.sleep(r.retry_after * 1.5)
+        return sendMarkup(text, bot, update, reply_markup)
+    except Exception as e:
+        LOGGER.error(str(e))
+        
+
 def sendMessage(text: str, bot, update: Update):
     try:
         return bot.send_message(update.message.chat_id,
