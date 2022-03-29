@@ -4,6 +4,7 @@ import pytz
 import subprocess
 
 from telegram.ext import CommandHandler
+from telegram import ParseMode
 from bot import dispatcher, updater, botStartTime, IMAGE_URL, OWNER_ID, AUTHORIZED_CHATS
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import *
