@@ -23,7 +23,7 @@ def list_drive(update, context):
         if button:
             deleteMessage(context.bot, reply)
             deleteMessage(context.bot, emoji)
-            sendPrivate(result + msg, context.bot, update, button)
+            sendPrivate(msg, context.bot, update, button)
         else:
             editMessage(f'𝐍𝐨 𝐫𝐞𝐬𝐮𝐥𝐭 𝐟𝐨𝐮𝐧𝐝 𝐟𝐨𝐫 <code>{search}</code>', reply, button)
             deleteMessage(context.bot, emoji)
