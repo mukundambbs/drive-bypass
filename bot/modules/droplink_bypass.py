@@ -13,7 +13,7 @@ from bot.helper.telegram_helper.bot_commands import
 
 
 # droplink url
-def drop_handler(update, context):
+def link_handler(update, context):
     args = update.message.text.split(" ", maxsplit=1)
     if len(args) > 1:
         link = args[1]
@@ -49,7 +49,7 @@ def droplink_bypass(url):
     data = { input.get('name'): input.get('value') for input in inputs }
 
     h = {
-        'content-type': 'application/x-www-form-urlencoded',
+        'content-type': 'application/x-www-form-urlencoded',                        
         'x-requested-with': 'XMLHttpRequest'
     }
     p = urlparse(url)
@@ -61,6 +61,6 @@ def droplink_bypass(url):
     return res
 
 
-droplink_handler = CommandHandler(BotCommands.DropCommand, drop_handler,
+droplink_handler = CommandHandler(BotCommands.DropCommand, link_handler,
                                filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
 dispatcher.add_handler(droplink_handler)
