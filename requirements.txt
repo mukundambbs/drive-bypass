@@ -8,3 +8,6 @@ telegraph
 pyshorteners
 pyrogram
 bs4
+TgCrypto
+selenium
+aiohttp
