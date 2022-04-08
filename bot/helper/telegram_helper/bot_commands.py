@@ -7,6 +7,7 @@ class _BotCommands:
         self.UnAuthorizeCommand = 'unauth'
         self.LogCommand = 'log'
         self.DropCommand = 'droplink'
+        self.TMVCommand = 'tmv'
         
 
 BotCommands = _BotCommands()
